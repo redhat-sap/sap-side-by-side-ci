@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-be-qa
+  namespace: argocd
+spec:
+  destination:
+    namespace: app-be-qa
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: app-be-qa
+    repoURL: https://github.com/redhat-sap/sap-side-by-side-ci.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
