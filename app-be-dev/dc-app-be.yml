@@ -17,15 +17,6 @@ spec:
     resources: {}
     activeDeadlineSeconds: 21600
   triggers:
-    - type: ImageChange
-      imageChangeParams:
-        automatic: false
-        containerNames:
-          - app-be
-        from:
-          kind: ImageStreamTag
-          namespace: app-be-dev
-          name: 'app-be:dev'
     - type: ConfigChange
   replicas: 1
   revisionHistoryLimit: 10
@@ -42,7 +33,7 @@ spec:
     spec:
       containers:
         - name: app-be
-          image: ''
+          image: 'app-be:dev'
           ports:
             - containerPort: 8080
               protocol: TCP
