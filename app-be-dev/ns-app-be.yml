@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-be-dev
+  annotations:
+    openshift.io/description: "Agile integration with SAP - Backend Microservice - Dev"
+    openshift.io/display-name: "Agile integration with SAP - Backend Microservice - Dev"
+spec: {}

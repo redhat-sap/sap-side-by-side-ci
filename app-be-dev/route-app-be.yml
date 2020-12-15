@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: app-be
+  namespace: app-be-dev
+  labels:
+    app: app-be
+spec:
+  host: app-be.apps.cluster-{{ guid }}.{{ ocp4_base_domain }}
+  to:
+    kind: Service
+    name: app-be
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
