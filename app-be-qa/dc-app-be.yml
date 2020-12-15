@@ -17,15 +17,6 @@ spec:
     resources: {}
     activeDeadlineSeconds: 21600
   triggers:
-    - type: ImageChange
-      imageChangeParams:
-        automatic: false
-        containerNames:
-          - app-be
-        from:
-          kind: ImageStreamTag
-          namespace: app-be-qa
-          name: 'app-be:qa'
     - type: ConfigChange
   replicas: 1
   revisionHistoryLimit: 10
@@ -42,7 +33,7 @@ spec:
     spec:
       containers:
         - name: app-be
-          image: ''
+          image: 'image-registry.openshift-image-registry.svc:5000/app-be-qa/app-be:qa'
           ports:
             - containerPort: 8080
               protocol: TCP
