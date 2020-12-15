@@ -19,7 +19,7 @@ spec:
   triggers:
     - type: ImageChange
       imageChangeParams:
-        automatic: true
+        automatic: false
         containerNames:
           - app-be
         from:
