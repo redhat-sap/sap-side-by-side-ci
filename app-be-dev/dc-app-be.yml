@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: app-be
-          image: 'app-be:dev'
+          image: 'image-registry.openshift-image-registry.svc:5000/app-be-dev/app-be:dev'
           ports:
             - containerPort: 8080
               protocol: TCP
