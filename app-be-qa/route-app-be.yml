@@ -2,11 +2,11 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: app-be
-  namespace: app-be-dev
+  namespace: app-be-qa
   labels:
     app: app-be
 spec:
-  host: app-be-dev.apps.cluster-4515.4515.example.opentlc.com
+  host: app-be-qa.apps.cluster-4515.4515.example.opentlc.com
   to:
     kind: Service
     name: app-be

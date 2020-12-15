@@ -2,7 +2,7 @@ kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
   name: app-be
-  namespace: app-be-dev
+  namespace: app-be-qa
   labels:
     app: app-be
 spec:
@@ -24,8 +24,8 @@ spec:
           - app-be
         from:
           kind: ImageStreamTag
-          namespace: app-be-dev
-          name: 'app-be:dev'
+          namespace: app-be-qa
+          name: 'app-be:qa'
     - type: ConfigChange
   replicas: 1
   revisionHistoryLimit: 10
@@ -53,7 +53,7 @@ spec:
           env:
             - name: SWAGGER_HOST
               value: >-
-                app-be-dev.apps.cluster-4515.4515.example.opentlc.com
+                app-be-qa.apps.cluster-4515.4515.example.opentlc.com
             - name: S4HANA_HOST
               value: 'secret_host_info'
             - name: S4HANA_PORT
