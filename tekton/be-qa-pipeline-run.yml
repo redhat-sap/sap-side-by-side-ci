@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: be-qa-build-and-deploy-initial
+  namespace: app-be-qa
+  labels:
+    tekton.dev/pipeline: be-qa-build-and-deploy
+spec:
+  params:
+    - name: IMAGE_NAME
+      value: 'image-registry.openshift-image-registry.svc:5000/app-be-qa/app-be:qa'
+    - name: GIT_REPO
+      value: 'https://github.com/redhat-sap/sap-side-by-side-be.git'
+    - name: GIT_REVISION
+      value: qa
+    - name: DC_NAME
+      value: app-be
+  pipelineRef:
+    name: be-qa-build-and-deploy
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: workspace
+      persistentVolumeClaim:
+        claimName: gitdir
