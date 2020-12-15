@@ -6,7 +6,7 @@ metadata:
   labels:
     app: app-be
 spec:
-  host: app-be.apps.cluster-{{ guid }}.{{ ocp4_base_domain }}
+  host: app-be.apps.cluster-4515.4515.example.opentlc.com
   to:
     kind: Service
     name: app-be

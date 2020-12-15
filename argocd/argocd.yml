@@ -2,18 +2,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: ArgoCD
 metadata:
   name: sap-argocd
-  namespace: argocd
+  labels:
+    example: sap-sample
 spec:
-  dex:
-    openShiftOAuth: true
   grafana:
     enabled: true
     route:
       enabled: true
   prometheus:
     enabled: true
-    ingress:
-      enabled: false
     route:
       enabled: true
   server:
