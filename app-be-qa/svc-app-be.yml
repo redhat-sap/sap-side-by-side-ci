@@ -19,6 +19,10 @@ spec:
       protocol: TCP
       port: 9779
       targetPort: 9779
+    - name: 9777-tcp
+      protocol: TCP
+      port: 9777
+      targetPort: 9777
   selector:
     app: app-be
     deploymentconfig: app-be
