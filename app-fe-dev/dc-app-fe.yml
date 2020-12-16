@@ -1,0 +1,58 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: app-fe
+  namespace: app-fe-dev
+  labels:
+    app: app-fe
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: app-fe
+    deploymentconfig: app-fe
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app-fe
+        deploymentconfig: app-fe
+    spec:
+      volumes:
+        - name: backend-config
+          configMap:
+            name: backend-environment
+            defaultMode: 420
+      containers:
+        - name: app-fe
+          image: 'image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: backend-config
+              mountPath: /opt/app-root/src/assets/config
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

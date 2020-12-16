@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: backend-environment
+  namespace: app-fe-dev
+data:
+  config.json: |-
+    {
+      "apiUrl": "http://app-fe-dev.apps.cluster-{{ guid }}.{{ ocp4_base_domain }}"
+    }

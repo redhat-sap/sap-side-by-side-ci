@@ -39,6 +39,8 @@ oc create -f argocd/cluster-role-bind.yml
 ```bash
 oc create -f argocd/argo-app-be-dev.yml
 oc create -f argocd/argo-app-be-qa.yml
+oc create -f argocd/argo-app-fe-dev.yml
+oc create -f argocd/argo-app-fe-qa.yml
 ```
 
 ### Get Argo CD credentials for `admin` user
