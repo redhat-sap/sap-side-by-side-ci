@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: fe-dev-build-and-deploy-initial
+  namespace: app-fe-qa
+  labels:
+    tekton.dev/pipeline: fe-qa-build-and-deploy
+spec:
+  params:
+    - name: IMAGE_NAME
+      value: 'image-registry.openshift-image-registry.svc:5000/app-fe-qa/app-fe:qa'
+    - name: GIT_REPO
+      value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
+    - name: GIT_REVISION
+      value: qa
+    - name: DC_NAME
+      value: app-fe
+  pipelineRef:
+    name: fe-qa-build-and-deploy
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: workspace
+      persistentVolumeClaim:
+        claimName: gitdir

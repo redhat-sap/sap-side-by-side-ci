@@ -56,4 +56,8 @@ oc create -f tekton/be-dev-pipeline.yml
 oc create -f tekton/be-dev-pipeline-run.yml
 oc create -f tekton/be-qa-pipeline.yml
 oc create -f tekton/be-qa-pipeline-run.yml
+oc create -f tekton/fe-dev-pipeline.yml
+oc create -f tekton/fe-dev-pipeline-run.yml
+oc create -f tekton/fe-qa-pipeline.yml
+oc create -f tekton/fe-qa-pipeline-run.yml
 ```
