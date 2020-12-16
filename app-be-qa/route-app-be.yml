@@ -6,7 +6,7 @@ metadata:
   labels:
     app: app-be
 spec:
-  host: app-be-qa.apps.cluster-4515.4515.example.opentlc.com
+  host: app-be-qa.mak-cluster-fra02-b3c-4-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
   to:
     kind: Service
     name: app-be
