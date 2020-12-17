@@ -11,17 +11,17 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        generateName: fe-build-and-deploy-
+        name: fe-$(tt.params.gitrevision)-build-and-deploy-$(uid)
       spec:
         pipelineRef:
           name: fe-build-and-deploy
         params:
           - name: IMAGE_NAME
-            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev'
+            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-$(tt.params.gitrevision)/app-fe:$(tt.params.gitrevision)'
           - name: GIT_REPO
             value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
           - name: GIT_REVISION
-            value: dev
+            value: $(tt.params.gitrevision)
           - name: DC_NAME
             value: app-fe
         resources:
