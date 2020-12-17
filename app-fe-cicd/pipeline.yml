@@ -30,23 +30,16 @@ spec:
       params:
         - name: url
           value: $(params.GIT_REPO)
-        - name: submodules
-          value: 'true'
-        - name: depth
-          value: '1'
-        - name: sslVerify
-          value: 'true'
         - name: deleteExisting
           value: 'true'
-        - name: verbose
-          value: 'true'
+        - name: revision
+          value: $(params.GIT_REVISION)
       taskRef:
         kind: ClusterTask
         name: git-clone
-      resources:
-        inputs:
-        - name: source
-          resource: app-fe-git-repo
-  
+      workspaces:
+        - name: output
+          workspace: workspace
+
   workspaces:
     - name: workspace
