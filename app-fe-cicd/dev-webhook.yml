@@ -46,7 +46,7 @@ spec:
       spec:
         serviceAccountName: pipeline
         pipelineRef:
-          name: fe-build-and-deploy
+          name: fe-pipeline-dev
         resources:
           - name: app-fe-git-repo
             resourceRef:
@@ -83,5 +83,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: el-fe-pipeline-dev-listener
+    name: el-fe-pipeline-listener-dev
     weight: 100
