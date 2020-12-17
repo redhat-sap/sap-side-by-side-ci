@@ -1,0 +1,76 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm-build
+spec:
+  params:
+    - name: npm_args
+      value: $(params.NPM_ARGS)
+      type: string
+  steps:
+    - image: registry.access.redhat.com/ubi8/nodejs-12
+      name: build
+      resources: {}
+      script: |
+        #!/bin/sh
+        set -eu -o pipefail
+        npm install
+        npm $(inputs.params.npm_args)
+      workingDir: $(workspaces.source.path)
+  workspaces:
+    - name: source
+      workspace: workspace
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: fetch-git-repo
+spec:
+  params:
+    - name: url
+      value: $(params.GIT_REPO)
+    - name: revision
+      value: $(params.GIT_REVISION)
+    - name: deleteExisting
+      value: 'true'
+  taskRef:
+    kind: ClusterTask
+    name: git-clone
+  workspaces:
+    - name: output
+      workspace: workspace
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: bake-image
+spec:
+  params:
+    - name: image
+      value: $(params.IMAGE_NAME)
+    - name: tlsverify
+      value: 'false'
+  taskRef:
+    kind: ClusterTask
+    name: buildah
+  workspaces:
+    - name: output
+      workspace: workspace
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy
+spec:
+  params:
+    - name: args
+      value:
+        - rollout
+        - latest
+        - $(params.DC_NAME)
+  taskRef:
+    kind: ClusterTask
+    name: openshift-client
