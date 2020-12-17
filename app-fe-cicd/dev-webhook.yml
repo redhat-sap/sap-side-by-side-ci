@@ -54,9 +54,6 @@ spec:
           - name: app-fe-image-dev
             resourceRef:
               name: app-fe-image-dev
-          - name: app-fe-image-qa
-            resourceRef:
-              name: app-fe-image-qa
         params:
           - name: IMAGE_NAME
             value: 'image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev'
