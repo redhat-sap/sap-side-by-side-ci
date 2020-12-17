@@ -4,9 +4,9 @@ metadata:
   name: app-fe-git-repo
 spec:
   params:
-    - name: url
+    - name: GIT_REPO
       value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
-    - name: revision
+    - name: GIT_REVISION
       value: dev
   type: git
 
@@ -18,7 +18,7 @@ metadata:
 spec:
   type: image
   params:
-  - name: url
+  - name: IMAGE_NAME
     value: image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev
 
 ---
@@ -29,5 +29,5 @@ metadata:
 spec:
   type: image
   params:
-  - name: url
+  - name: IMAGE_NAME
     value: image-registry.openshift-image-registry.svc:5000/app-fe-qa/app-fe:qa
