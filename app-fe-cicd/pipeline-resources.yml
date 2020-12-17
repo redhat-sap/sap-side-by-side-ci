@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: app-fe-git-repo
+spec:
+  params:
+    - name: url
+      value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
+    - name: revision
+      value: dev
+  type: git
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: app-fe-dev
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: app-fe-qa
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/app-fe-qa/app-fe:qa
