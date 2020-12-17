@@ -48,7 +48,8 @@ metadata:
 spec:
   params:
     - name: gitrevision
-      value: $(body.head_commit.id)
+      value: $(body.ref.split('/')[2])
+
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
