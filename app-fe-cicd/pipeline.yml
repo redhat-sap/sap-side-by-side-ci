@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: fe-build-and-deploy
+spec:
+  resources:
+    - name: app-fe-git-repo
+      type: git
+    - name: app-fe-image-dev
+      type: image
+    - name: app-fe-image-qa
+      type: image
+
+  params:
+    - name: IMAGE_NAME
+      type: string
+    - name: GIT_REPO
+      type: string
+    - name: GIT_REVISION
+      type: string
+    - name: DC_NAME
+      type: string
+    - name: NPM_ARGS
+      default: run-script build
+      name: NPM_ARGS
+      type: string
+
+  tasks:
+    - name: git-clone
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: submodules
+          value: 'true'
+        - name: depth
+          value: '1'
+        - name: sslVerify
+          value: 'true'
+        - name: deleteExisting
+          value: 'true'
+        - name: verbose
+          value: 'true'
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      resources:
+        inputs:
+        - name: source
+          resource: app-fe-git-repo
+  
+  workspaces:
+    - name: workspace
