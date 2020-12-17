@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: npm-build
+spec:
+  params:
+    - name: NPM_ARGS
+      type: string
+  steps:
+    - image: registry.access.redhat.com/ubi8/nodejs-12
+      name: build
+      resources: {}
+      script: |
+        #!/bin/sh
+        set -eu -o pipefail
+        npm install
+        npm $(inputs.params.NPM_ARGS)
+      workingDir: $(workspaces.source.path)
+  workspaces:
+    - name: source

@@ -17,6 +17,9 @@ spec:
     - default: app-fe
       name: DC_NAME
       type: string
+    - default: run-script build
+      name: NPM_ARGS
+      type: string
   tasks:
     - name: fetch-repository
       params:
@@ -32,14 +35,14 @@ spec:
       workspaces:
         - name: output
           workspace: workspace
-    - name: build
+    - name: bake
       params:
         - name: IMAGE
           value: $(params.IMAGE_NAME)
         - name: TLSVERIFY
           value: 'false'
       runAfter:
-        - fetch-repository
+        - build
       taskRef:
         kind: ClusterTask
         name: buildah
@@ -54,9 +57,21 @@ spec:
             - latest
             - $(params.DC_NAME)
       runAfter:
-        - build
+        - bake
       taskRef:
         kind: ClusterTask
         name: openshift-client
+    - name: build
+      params:
+        - name: NPM_ARGS
+          value: run-script build
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: ClusterTask
+        name: npm-build
+      workspaces:
+        - name: source
+          workspace: workspace
   workspaces:
     - name: workspace
