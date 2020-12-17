@@ -5,9 +5,9 @@ metadata:
 spec:
   serviceAccountName: pipeline
   triggers:
-    - name: app-fe-pipeline-trigger
-      bindings:
-        - name: app-fe-pipeline-binding
+    - bindings:
+      - kind: TriggerBinding
+        ref: app-fe-pipeline-binding
       template:
         name: app-fe-pipeline-template
 
