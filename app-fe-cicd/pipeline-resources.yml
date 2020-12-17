@@ -14,7 +14,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: app-fe-dev
+  name: app-fe-image-dev
 spec:
   type: image
   params:
@@ -25,7 +25,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: app-fe-qa
+  name: app-fe-image-qa
 spec:
   type: image
   params:
