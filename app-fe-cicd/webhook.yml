@@ -75,8 +75,8 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
-    eventlistener: webhook
-  name: el-webhook
+    eventlistener: app-fe-pipeline-listener
+  name: app-fe-pipeline-webhook
 spec:
   port:
     targetPort: 8080
@@ -84,5 +84,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: el-webhook
+    name: app-fe-pipeline-listener
     weight: 100
