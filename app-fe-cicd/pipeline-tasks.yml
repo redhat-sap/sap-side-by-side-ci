@@ -6,6 +6,7 @@ spec:
   params:
     - name: npm_args
       type: string
+      default: run-script build
   steps:
     - image: registry.access.redhat.com/ubi8/nodejs-12
       name: build
@@ -19,54 +20,3 @@ spec:
   workspaces:
     - name: source
       workspace: workspace
-
----
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: fetch-git-repo
-spec:
-  params:
-    - name: url
-      type: string
-    - name: revision
-      type: string
-    - name: deleteExisting
-      default: 'true'
-  taskRef:
-    kind: ClusterTask
-    name: git-clone
-  workspaces:
-    - name: output
-      workspace: workspace
-
----
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: bake-image
-spec:
-  params:
-    - name: image
-      type: string
-    - name: tlsverify
-      default: 'false'
-  taskRef:
-    kind: ClusterTask
-    name: buildah
-  workspaces:
-    - name: output
-      workspace: workspace
-
----
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: deploy
-spec:
-  params:
-    - name: args
-      type: string
-  taskRef:
-    kind: ClusterTask
-    name: openshift-client
