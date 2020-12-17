@@ -3,10 +3,6 @@ kind: Task
 metadata:
   name: npm-build
 spec:
-  params:
-    - name: npm_args
-      type: string
-      default: run-script build
   steps:
     - image: registry.access.redhat.com/ubi8/nodejs-12
       name: build
@@ -15,7 +11,7 @@ spec:
         #!/bin/sh
         set -eu -o pipefail
         npm install
-        npm $(inputs.params.NPM_ARGS)
+        npm run-script build
       workingDir: $(workspaces.source.path)
   workspaces:
     - name: source

@@ -18,10 +18,6 @@ spec:
       type: string
     - name: DC_NAME
       type: string
-    - name: NPM_ARGS
-      default: run-script build
-      name: NPM_ARGS
-      type: string
 
   tasks:
     - name: git-clone
@@ -40,9 +36,6 @@ spec:
           workspace: workspace
 
     - name: build
-      params:
-        - name: NPM_ARGS
-          value: run-script build
       runAfter:
         - git-clone
       taskRef:
