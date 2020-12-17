@@ -2,7 +2,6 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: gitdir
-  namespace: app-fe-dev
   finalizers:
     - kubernetes.io/pvc-protection
 spec:
