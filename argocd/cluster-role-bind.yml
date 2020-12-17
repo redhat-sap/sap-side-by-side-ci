@@ -10,3 +10,18 @@ subjects:
 - kind: ServiceAccount
   name: argocd-application-controller
   namespace: argocd
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tekton-image-pusher
+subjects:
+  - kind: ServiceAccount
+    name: pipeline
+    namespace: app-fe-cicd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: 'system:image-pusher'

@@ -67,6 +67,7 @@ spec:
             - rollout
             - latest
             - $(params.DC_NAME)
+            - '-n app-fe-dev'
       runAfter:
         - bake
       taskRef:
