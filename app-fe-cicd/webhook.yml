@@ -1,29 +1,49 @@
 apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: app-fe-pipeline-listener
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: app-fe-pipeline-trigger
+      bindings:
+        - name: app-fe-pipeline-binding
+      template:
+        name: app-fe-pipeline-template
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: app-fe-pipeline-binding
+spec:
+  params:
+    - name: gitrevision
+      value: $(body.head_commit.id)
+    - name: gitrepositoryurl
+      value: $(body.repository.url)
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: fe-build-and-deploy-triggertemplate
+  name: app-fe-pipeline-template
 spec:
   params:
     - name: gitrevision
       description: The git revision
-      default: dev
+      default: master
+    - name: gitrepositoryurl
+      description: The git repository url
   resourcetemplates:
-    - apiVersion: tekton.dev/v1beta1
+    - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
       metadata:
-        name: fe-$(tt.params.gitrevision)-build-and-deploy-$(uid)
+        name: app-fe-pipeline-run-$(params.gitrevision)
       spec:
+        serviceAccountName: pipeline
         pipelineRef:
           name: fe-build-and-deploy
-        params:
-          - name: IMAGE_NAME
-            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-$(tt.params.gitrevision)/app-fe:$(tt.params.gitrevision)'
-          - name: GIT_REPO
-            value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
-          - name: GIT_REVISION
-            value: $(tt.params.gitrevision)
-          - name: DC_NAME
-            value: app-fe
         resources:
           - name: app-fe-git-repo
             resourceRef:
@@ -34,35 +54,20 @@ spec:
           - name: app-fe-image-qa
             resourceRef:
               name: app-fe-image-qa
-        serviceAccountName: pipeline
-        timeout: 1h0m0s
+        params:
+          - name: IMAGE_NAME
+            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-$(params.gitrevision)/app-fe:$(params.gitrevision)'
+          - name: GIT_REPO
+            value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
+          - name: GIT_REVISION
+            value: $(params.gitrevision)
+          - name: DC_NAME
+            value: app-fe
         workspaces:
           - name: workspace
             persistentVolumeClaim:
               claimName: gitdir
----
-apiVersion: triggers.tekton.dev/v1alpha1
-kind: TriggerBinding
-metadata:
-  name: github-triggerbinding
-spec:
-  params:
-    - name: gitrevision
-      value: $(body.ref.split('/')[2])
 
----
-apiVersion: triggers.tekton.dev/v1alpha1
-kind: EventListener
-metadata:
-  name: webhook
-spec:
-  serviceAccountName: pipeline
-  triggers:
-    - bindings:
-        - kind: TriggerBinding
-          ref: github-triggerbinding
-      template:
-        name: fe-build-and-deploy-triggertemplate
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
