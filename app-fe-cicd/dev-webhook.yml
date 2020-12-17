@@ -1,21 +1,24 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: app-fe-pipeline-listener
+  name: fe-pipeline-listener-dev
 spec:
   serviceAccountName: pipeline
   triggers:
     - bindings:
       - kind: TriggerBinding
-        ref: app-fe-pipeline-binding
+        ref: fe-pipeline-binding-dev
+      interceptors:
+        - cel:
+            filter: (body.ref.startsWith('refs/heads/dev'))
       template:
-        name: app-fe-pipeline-template
+        name: fe-pipeline-template-dev
 
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: app-fe-pipeline-binding
+  name: fe-pipeline-binding-dev
 spec:
   params:
     - name: gitrevision
@@ -27,7 +30,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: app-fe-pipeline-template
+  name: fe-pipeline-template-dev
 spec:
   params:
     - name: gitrevision
@@ -56,11 +59,11 @@ spec:
               name: app-fe-image-qa
         params:
           - name: IMAGE_NAME
-            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-$(params.gitrevision)/app-fe:$(params.gitrevision)'
+            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev'
           - name: GIT_REPO
             value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
           - name: GIT_REVISION
-            value: $(params.gitrevision)
+            value: dev
           - name: DC_NAME
             value: app-fe
         workspaces:
@@ -72,7 +75,7 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: app-fe-pipeline-webhook
+  name: fe-pipeline-webhook-dev
 spec:
   port:
     targetPort: 8080
@@ -80,5 +83,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: el-app-fe-pipeline-listener
+    name: el-fe-pipeline-dev-listener
     weight: 100
