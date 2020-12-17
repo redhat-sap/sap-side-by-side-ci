@@ -5,7 +5,6 @@ metadata:
 spec:
   params:
     - name: npm_args
-      value: $(params.NPM_ARGS)
       type: string
   steps:
     - image: registry.access.redhat.com/ubi8/nodejs-12
@@ -15,7 +14,7 @@ spec:
         #!/bin/sh
         set -eu -o pipefail
         npm install
-        npm $(inputs.params.npm_args)
+        npm $(inputs.params.NPM_ARGS)
       workingDir: $(workspaces.source.path)
   workspaces:
     - name: source
@@ -29,11 +28,11 @@ metadata:
 spec:
   params:
     - name: url
-      value: $(params.GIT_REPO)
+      type: string
     - name: revision
-      value: $(params.GIT_REVISION)
+      type: string
     - name: deleteExisting
-      value: 'true'
+      default: 'true'
   taskRef:
     kind: ClusterTask
     name: git-clone
@@ -49,9 +48,9 @@ metadata:
 spec:
   params:
     - name: image
-      value: $(params.IMAGE_NAME)
+      type: string
     - name: tlsverify
-      value: 'false'
+      default: 'false'
   taskRef:
     kind: ClusterTask
     name: buildah
@@ -67,10 +66,7 @@ metadata:
 spec:
   params:
     - name: args
-      value:
-        - rollout
-        - latest
-        - $(params.DC_NAME)
+      type: string
   taskRef:
     kind: ClusterTask
     name: openshift-client
