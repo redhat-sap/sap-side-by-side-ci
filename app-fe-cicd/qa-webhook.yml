@@ -1,0 +1,84 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: fe-pipeline-listener-qa
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - bindings:
+      - kind: TriggerBinding
+        ref: fe-pipeline-binding-qa
+      interceptors:
+        - cel:
+            filter: (body.ref.startsWith('refs/heads/qa'))
+      template:
+        name: fe-pipeline-template-qa
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: fe-pipeline-binding-qa
+spec:
+  params:
+    - name: gitrevision
+      value: $(body.head_commit.id)
+    - name: gitrepositoryurl
+      value: $(body.repository.url)
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: fe-pipeline-template-qa
+spec:
+  params:
+    - name: gitrevision
+      description: The git revision
+      default: master
+    - name: gitrepositoryurl
+      description: The git repository url
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        name: app-fe-pipeline-run-$(tt.params.gitrevision)
+      spec:
+        serviceAccountName: pipeline
+        pipelineRef:
+          name: fe-pipeline-qa
+        resources:
+          - name: app-fe-git-repo
+            resourceRef:
+              name: app-fe-git-repo
+          - name: app-fe-image-qa
+            resourceRef:
+              name: app-fe-image-qa
+        params:
+          - name: IMAGE_NAME
+            value: 'image-registry.openshift-image-registry.svc:5000/app-fe-qa/app-fe:qa'
+          - name: GIT_REPO
+            value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
+          - name: GIT_REVISION
+            value: qa
+          - name: DC_NAME
+            value: app-fe
+        workspaces:
+          - name: workspace
+            persistentVolumeClaim:
+              claimName: gitdir
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: fe-pipeline-webhook-qa
+spec:
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: el-fe-pipeline-listener-qa
+    weight: 100
