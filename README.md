@@ -75,3 +75,35 @@ oc create -f argocd/argo-app-fe-cicd.yml
 ```
 oc get secret sap-argocd-cluster -o jsonpath='{.data.admin\.password}' | base64 -d
 ```
+
+### Check results
+
+Use the credential for Argo CD `admin` user to login into Argo webconsole and you should see something similar to this, whith all the applications managed by Argo CD started to sync their objects into OpenShift.
+
+![Argo Applications](img/argo01.png)
+
+If you click on any of the Applications you can see more details on the objects that have been synced already and the actual status.
+
+![Argo Application details](img/argo02.png)
+
+If you check the existing Pipelines on any of the `cicd` Projects that have been created in OpenShift you will see the Pipeline status and the results from the first PipelineRun once you have committed any code to your GitHub `dev` or `qa` branches. This will not happen until you follow the last step explained bellow configuring your GitHub hooks to notify the EventListeners configured for your Pipelines.
+
+![Pipeline](img/tekton01.png)
+
+### Configure your GitHub hook
+
+On each GitHub repository you need to configure 2 different hooks. Use the following command to get the endpoint information for each one:
+
+- Frontend microservices hook endpoitns
+
+    ```bash
+     oc get routes -n app-fe-cicd fe-pipeline-webhook-dev -o jsonpath='{.spec.host}'
+     oc get routes -n app-fe-cicd fe-pipeline-webhook-qa -o jsonpath='{.spec.host}'
+    ```
+
+- Backend microservices hook endpoitns
+
+    ```bash
+     oc get routes -n app-be-cicd be-pipeline-webhook-dev -o jsonpath='{.spec.host}'
+     oc get routes -n app-be-cicd be-pipeline-webhook-qa -o jsonpath='{.spec.host}'
+     ```
