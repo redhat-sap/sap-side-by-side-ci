@@ -42,7 +42,7 @@ spec:
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
       metadata:
-        name: app-fe-pipeline-dev-run-$(tt.params.gitrevision)
+        name: app-fe-pipeline-dev-run-$(uid)
       spec:
         serviceAccountName: pipeline
         pipelineRef:
