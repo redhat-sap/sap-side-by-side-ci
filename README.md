@@ -11,7 +11,7 @@ You must be logged into your OpenShift Cluster using `oc` or `kubectl` client in
 All the Tekton pipelines and required objects will be managed by Argo CD and these are part of the Argo CD Applications deployed by the instructions bellow. Different Tekton Pipelines will be automatically configured for `dev` and `qa` branches of the following repositories which contain the application code:
 
 - [Backend Microservice](https://github.com/redhat-sap/sap-side-by-side-be)
-- [Frontend Microservice] (https://github.com/redhat-sap/sap-side-by-side-fe)
+- [Frontend Microservice](https://github.com/redhat-sap/sap-side-by-side-fe)
 
 To test all the capabilities included on this demo you will need to fork and clone both repositories as you will need to configure different Hooks in your forked repositories so you can test how changes on the `dev` or `qa` branches of those repositories go from there to a running microservice in OpenShift with your code.
 
