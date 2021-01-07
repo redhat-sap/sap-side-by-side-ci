@@ -55,7 +55,7 @@ oc create -f argocd/subscription.yml
 ### Create an Argo CD Deployment
 
 ```bash
-oc create -f argocd/argocd.yml
+oc create -f argocd/argocd.yml -n argocd
 oc create -f argocd/cluster-role-bind.yml
 ```
 
