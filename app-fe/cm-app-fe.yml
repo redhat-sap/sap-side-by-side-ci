@@ -6,5 +6,5 @@ metadata:
 data:
   config.json: |-
     {
-      "apiUrl": "http://app-be.svc.cluster.local"
+      "apiUrl": "http://app-be.app-be.svc.cluster.locall"
     }
