@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: app-fe-dev
-  annotations:
-    openshift.io/description: "Agile integration with SAP - Frontend Microservice - Dev"
-    openshift.io/display-name: "Agile integration with SAP - Frontend Microservice - Dev"
-spec: {}

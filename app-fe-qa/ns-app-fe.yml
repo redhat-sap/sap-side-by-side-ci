@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: app-fe-qa
-  annotations:
-    openshift.io/description: "Agile integration with SAP - Frontend Microservice - QA"
-    openshift.io/display-name: "Agile integration with SAP - Frontend Microservice - QA"
-spec: {}

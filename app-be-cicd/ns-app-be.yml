@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: app-be-cicd
-  annotations:
-    openshift.io/description: "Agile integration with SAP - Backend Microservice - CI/CD"
-    openshift.io/display-name: "Agile integration with SAP - Backend Microservice - CI/CD"
-spec: {}

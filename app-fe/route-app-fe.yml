@@ -2,11 +2,11 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: app-fe
-  namespace: app-fe-dev
+  namespace: app-fe
   labels:
     app: app-fe
 spec:
-  host: app-fe-dev.mak-cluster-fra02-b3c-4-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
+  host: app-fe-qa.mak-cluster-fra02-b3c-4-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
   to:
     kind: Service
     name: app-fe

@@ -2,7 +2,7 @@ kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
   name: app-be
-  namespace: app-be-dev
+  namespace: app-be
   labels:
     app: app-be
 spec:
@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: app-be
-          image: 'image-registry.openshift-image-registry.svc:5000/app-be-dev/app-be:dev'
+          image: 'quay.io/redhat-sap-cop/sap-side-by-side-be:v1.1.0'
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -44,7 +44,7 @@ spec:
           env:
             - name: SWAGGER_HOST
               value: >-
-                app-be-dev.apps.cluster-4515.4515.example.opentlc.com
+                app-be-qa.apps.cluster-4515.4515.example.opentlc.com
             - name: S4HANA_HOST
               value: 'secret_host_info'
             - name: S4HANA_PORT

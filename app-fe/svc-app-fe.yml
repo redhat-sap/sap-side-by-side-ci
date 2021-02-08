@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: app-fe
-  namespace: app-fe-dev
+  namespace: app-fe
   labels:
     app: app-fe
 spec:

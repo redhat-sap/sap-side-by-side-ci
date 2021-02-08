@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: app-be
-  namespace: app-be-qa
+  namespace: app-be
   labels:
     app: app-be
 spec:

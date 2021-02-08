@@ -2,7 +2,7 @@ kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
   name: app-fe
-  namespace: app-fe-dev
+  namespace: app-fe
   labels:
     app: app-fe
 spec:
@@ -38,7 +38,7 @@ spec:
             defaultMode: 420
       containers:
         - name: app-fe
-          image: 'image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev'
+          image: 'quay.io/redhat-sap-cop/sap-side-by-side-fe:v1.0.0'
           ports:
             - containerPort: 8080
               protocol: TCP
