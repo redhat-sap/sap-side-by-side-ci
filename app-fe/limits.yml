@@ -6,7 +6,7 @@ metadata:
 spec:
   limits:
   - max:
-      memory: 1Gi
+      memory: 2Gi
     min:
       memory: 256Mi
     type: Container
