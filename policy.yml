@@ -31,13 +31,13 @@ spec:
                   name: compute-resources
                 spec:
                   hard:
-                    pods: "4" 
+                    pods: "1" 
                     requests.cpu: "1" 
                     requests.memory: 1Gi 
                     requests.ephemeral-storage: 2Gi 
-                    limits.cpu: "2" 
-                    limits.memory: 2Gi 
-                    limits.ephemeral-storage: 4Gi
+                    limits.cpu: "1" 
+                    limits.memory: 4Gi 
+                    limits.ephemeral-storage: 10Gi
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
