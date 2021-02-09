@@ -43,7 +43,7 @@ spec:
               protocol: TCP
           env:
             - name: SWAGGER_HOST
-              value: 'app-be.svc.cluster.local'
+              value: 'app-be.app-be.svc.cluster.loca'
             - name: S4HANA_HOST
               value: 's4hana-dal10.opentlc.com'
             - name: S4HANA_PORT
