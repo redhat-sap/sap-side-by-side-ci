@@ -26,16 +26,18 @@ spec:
             - complianceType: musthave
               objectDefinition:
                 apiVersion: v1
-                kind: LimitRange # limit memory usage
+                kind: ResourceQuota
                 metadata:
-                  name: mem-limit-range
+                  name: compute-resources
                 spec:
-                  limits:
-                  - default:
-                      memory: 1Gi
-                    defaultRequest:
-                      memory: 256Mi
-                    type: Container
+                  hard:
+                    pods: "4" 
+                    requests.cpu: "1" 
+                    requests.memory: 1Gi 
+                    requests.ephemeral-storage: 2Gi 
+                    limits.cpu: "2" 
+                    limits.memory: 2Gi 
+                    limits.ephemeral-storage: 4Gi
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
