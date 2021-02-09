@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: mem-max-rs
-  name: app-be
+  namespace: app-be
 spec:
   limits:
   - max:
