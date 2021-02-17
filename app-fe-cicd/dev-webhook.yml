@@ -58,7 +58,7 @@ spec:
           - name: IMAGE_NAME
             value: 'image-registry.openshift-image-registry.svc:5000/app-fe-dev/app-fe:dev'
           - name: GIT_REPO
-            value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
+            value: 'https://github.com/makentenza/sap-side-by-side-fe.git'
           - name: GIT_REVISION
             value: dev
           - name: DC_NAME
