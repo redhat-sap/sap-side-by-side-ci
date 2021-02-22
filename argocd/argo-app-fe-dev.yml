@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: app-fe-dev
-    repoURL: https://github.com/makentenza/sap-side-by-side-ci.git
+    repoURL: https://github.com/redhat-sap/sap-side-by-side-ci.git
     targetRevision: HEAD
   syncPolicy:
     automated: {}
