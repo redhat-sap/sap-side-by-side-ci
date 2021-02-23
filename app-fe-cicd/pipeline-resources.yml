@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
     - name: GIT_REPO
-      value: 'https://github.com/redhat-sap/sap-side-by-side-fe.git'
+      value: 'https://github.com/makentenza/sap-side-by-side-fe.git'
     - name: GIT_REVISION
       value: dev
   type: git

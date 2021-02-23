@@ -6,5 +6,5 @@ metadata:
 data:
   config.json: |-
     {
-      "apiUrl": "http://app-fe-dev.apps.cluster-{{ guid }}.{{ ocp4_base_domain }}"
+      "apiUrl": "http://app-fe-dev.mak-prod-europe-b3c-8x32-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud"
     }
