@@ -6,7 +6,7 @@ metadata:
   labels:
     app: app-be
 spec:
-  host: app-be-qa..mak-prod-europe-b3c-8x32-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
+  host: app-be-qa.mak-prod-europe-b3c-8x32-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
   to:
     kind: Service
     name: app-be
