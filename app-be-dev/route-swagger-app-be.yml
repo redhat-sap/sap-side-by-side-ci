@@ -1,0 +1,19 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: app-be-swagger
+  namespace: app-be-dev
+  labels:
+    app: app-be
+    app.kubernetes.io/instance: app-be-dev
+spec:
+  host: >-
+    app-be-dev.mak-prod-europe-b3c-8x32-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
+  path: '/webjars/swagger-ui/3.28.0/index.html?url=/sap-fuse-workshop/api-doc#'
+  to:
+    kind: Service
+    name: app-be
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
