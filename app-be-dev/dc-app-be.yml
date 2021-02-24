@@ -44,17 +44,17 @@ spec:
           env:
             - name: SWAGGER_HOST
               value: >-
-                app-be-dev.apps.cluster-4515.4515.example.opentlc.com
+                app-be-dev.mak-prod-europe-b3c-8x32-83a47da58f874381c353492b1ca1c269-0000.eu-de.containers.appdomain.cloud
             - name: S4HANA_HOST
-              value: 'secret_host_info'
+              value: 's4hana-dal10.opentlc.com'
             - name: S4HANA_PORT
-              value: 'secret_port_info'
+              value: '8000'
             - name: S4HANA_PORTJCO
-              value: 'secret_port_info'
+              value: '3300'
             - name: S4HANA_USER
-              value: 'secret_user_info'
+              value: 'ricardo'
             - name: S4HANA_PASSWORD
-              value: 'secret_passwd_info'
+              value: 'R3dh4t123!'
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
