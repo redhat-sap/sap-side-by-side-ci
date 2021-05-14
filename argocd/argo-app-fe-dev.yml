@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: app-fe-dev
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   destination:
     namespace: app-fe-dev
