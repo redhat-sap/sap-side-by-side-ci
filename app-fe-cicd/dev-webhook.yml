@@ -75,7 +75,7 @@ metadata:
   name: fe-pipeline-webhook-dev
 spec:
   port:
-    targetPort: 8080
+    targetPort: http-listener
   tls:
     termination: edge
   to:
