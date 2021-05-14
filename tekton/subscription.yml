@@ -3,8 +3,12 @@ kind: Subscription
 metadata:
   name: openshift-pipelines-operator-rh
   namespace: openshift-operators
+  labels:
+    operators.coreos.com/openshift-pipelines-operator-rh.openshift-operators: ''
 spec:
-  channel: ocp-4.6
+  channel: stable
+  config:
+    resources: {}
   installPlanApproval: Automatic
   name: openshift-pipelines-operator-rh
   source: redhat-operators

@@ -44,18 +44,15 @@ oc create -f tekton/subscription.yml
 
 ### Deploy Argo CD Operator
 
-This can be done using the OpenShift Console as well, installing `Argo CD` from OperatorHub. If you want to use the terminal instead, just execute the following instructions.
+This can be done using the OpenShift Console as well, installing `OpenShift GitOps` from OperatorHub. If you want to use the terminal instead, just execute the following instructions.
 
 ```bash
-oc create -f argocd/namespace.yml
-oc create -f argocd/operatorgroup.yml
 oc create -f argocd/subscription.yml
 ```
 
-### Create an Argo CD Deployment
+### Create Cluster Role for Argo
 
 ```bash
-oc create -f argocd/argocd.yml -n argocd
 oc create -f argocd/cluster-role-bind.yml
 ```
 
@@ -73,7 +70,7 @@ oc create -f argocd/argo-app-fe-cicd.yml
 ### Get Argo CD credentials for `admin` user
 
 ```
-oc get secret sap-argocd-cluster -o jsonpath='{.data.admin\.password}' | base64 -d
+oc get secret openshift-gitops-cluster -n openshift-gitops -o jsonpath='{.data.admin\.password}' | base64 -d
 ```
 
 ### Check results

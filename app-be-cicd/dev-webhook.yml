@@ -12,7 +12,7 @@ spec:
         - cel:
             filter: (body.ref.startsWith('refs/heads/dev'))
       template:
-        name: be-pipeline-template-dev
+        ref: be-pipeline-template-dev
 
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
@@ -58,7 +58,7 @@ spec:
           - name: IMAGE_NAME
             value: 'image-registry.openshift-image-registry.svc:5000/app-be-dev/app-be:dev'
           - name: GIT_REPO
-            value: 'https://github.com/makentenza/sap-side-by-side-be.git'
+            value: 'https://github.com/redhat-sap/sap-side-by-side-be.git'
           - name: GIT_REVISION
             value: dev
           - name: DC_NAME
