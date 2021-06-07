@@ -2,7 +2,7 @@ kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
   name: app-be
-  namespace: app-be
+  namespace: app-be-acm
   labels:
     app: app-be
 spec:
@@ -43,7 +43,7 @@ spec:
               protocol: TCP
           env:
             - name: SWAGGER_HOST
-              value: 'app-be.app-be.svc.cluster.local'
+              value: 'app-be.app-be-acm.svc.cluster.local'
             - name: S4HANA_HOST
               value: 's4hana-dal10.opentlc.com'
             - name: S4HANA_PORT

@@ -2,7 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: app-be
-  namespace: app-be
+  namespace: app-be-acm
   labels:
     app: app-be
 spec:

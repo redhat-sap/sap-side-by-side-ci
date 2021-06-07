@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: app-be
+  name: app-be-acm
   annotations:
     openshift.io/description: "Agile integration with SAP - Backend Microservice"
     openshift.io/display-name: "Agile integration with SAP - Backend Microservice"
